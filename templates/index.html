@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emotion Detector</title>
+    <link rel="icon" href="data:,">
 </head>
 <body>
     <h1>Emotion Detector</h1>
@@ -15,10 +16,14 @@
     <script>
         function analyzeText() {
             const text = document.getElementById('textToAnalyze').value;
+            document.getElementById('result').innerText = "Loading... (This may take up to 5 seconds)";
             fetch('/emotionDetector?textToAnalyze=' + encodeURIComponent(text))
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById('result').innerText = data;
+                })
+                .catch(err => {
+                    document.getElementById('result').innerText = "Error: " + err;
                 });
         }
     </script>
